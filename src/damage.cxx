@@ -319,7 +319,7 @@ ParameterSet CombinedDamageModel_sd::parameters()
 
 std::unique_ptr<NEMLObject> CombinedDamageModel_sd::initialize(ParameterSet & params)
 {
-  return neml::make_unique<CombinedDamageModel_sd>(
+  return std::make_unique<CombinedDamageModel_sd>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter_vector<NEMLScalarDamagedModel_sd>("models"),
       params.get_object_parameter<NEMLModel_sd>("base"),
@@ -465,7 +465,7 @@ ParameterSet ClassicalCreepDamageModel_sd::parameters()
 
 std::unique_ptr<NEMLObject> ClassicalCreepDamageModel_sd::initialize(ParameterSet & params)
 {
-  return neml::make_unique<ClassicalCreepDamageModel_sd>(
+  return std::make_unique<ClassicalCreepDamageModel_sd>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<Interpolate>("A"),
       params.get_object_parameter<Interpolate>("xi"),
@@ -589,7 +589,7 @@ ParameterSet VonMisesEffectiveStress::parameters()
 
 std::unique_ptr<NEMLObject> VonMisesEffectiveStress::initialize(ParameterSet & params)
 {
-  return neml::make_unique<VonMisesEffectiveStress>();
+  return std::make_unique<VonMisesEffectiveStress>();
 }
 
 int VonMisesEffectiveStress::effective(const double * const s, double & eff) const
@@ -628,7 +628,7 @@ ParameterSet MeanEffectiveStress::parameters() {
 
 std::unique_ptr<NEMLObject>
 MeanEffectiveStress::initialize(ParameterSet &params) {
-  return neml::make_unique<MeanEffectiveStress>();
+  return std::make_unique<MeanEffectiveStress>();
 }
 
 int MeanEffectiveStress::effective(const double *const s, double &eff) const {
@@ -672,7 +672,7 @@ ParameterSet HuddlestonEffectiveStress::parameters()
 
 std::unique_ptr<NEMLObject> HuddlestonEffectiveStress::initialize(ParameterSet & params)
 {
-  return neml::make_unique<HuddlestonEffectiveStress>(
+  return std::make_unique<HuddlestonEffectiveStress>(
       params.get_parameter<double>("b")
       );
 }
@@ -768,7 +768,7 @@ ParameterSet MaxPrincipalEffectiveStress::parameters()
 
 std::unique_ptr<NEMLObject> MaxPrincipalEffectiveStress::initialize(ParameterSet & params)
 {
-  return neml::make_unique<MaxPrincipalEffectiveStress>();
+  return std::make_unique<MaxPrincipalEffectiveStress>();
 }
 
 int MaxPrincipalEffectiveStress::effective(const double * const s, double & eff) const
@@ -840,7 +840,7 @@ ParameterSet MaxSeveralEffectiveStress::parameters()
 
 std::unique_ptr<NEMLObject> MaxSeveralEffectiveStress::initialize(ParameterSet & params)
 {
-  return neml::make_unique<MaxSeveralEffectiveStress>(
+  return std::make_unique<MaxSeveralEffectiveStress>(
       params.get_object_parameter_vector<EffectiveStress>("measures"));
 }
 
@@ -905,7 +905,7 @@ ParameterSet SumSeveralEffectiveStress::parameters()
 
 std::unique_ptr<NEMLObject> SumSeveralEffectiveStress::initialize(ParameterSet & params)
 {
-  return neml::make_unique<SumSeveralEffectiveStress>(
+  return std::make_unique<SumSeveralEffectiveStress>(
       params.get_object_parameter_vector<EffectiveStress>("measures"),
       params.get_parameter<std::vector<double>>("weights"));
 }
@@ -983,7 +983,7 @@ ParameterSet ModularCreepDamageModel_sd::parameters()
 
 std::unique_ptr<NEMLObject> ModularCreepDamageModel_sd::initialize(ParameterSet & params)
 {
-  return neml::make_unique<ModularCreepDamageModel_sd>(
+  return std::make_unique<ModularCreepDamageModel_sd>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<Interpolate>("A"),
       params.get_object_parameter<Interpolate>("xi"),
@@ -1130,7 +1130,7 @@ ParameterSet LarsonMillerCreepDamageModel_sd::parameters()
 
 std::unique_ptr<NEMLObject> LarsonMillerCreepDamageModel_sd::initialize(ParameterSet & params)
 {
-  return neml::make_unique<LarsonMillerCreepDamageModel_sd>(
+  return std::make_unique<LarsonMillerCreepDamageModel_sd>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<LarsonMillerRelation>("lmr"),
       params.get_object_parameter<EffectiveStress>("estress"),
@@ -1457,7 +1457,7 @@ ParameterSet NEMLPowerLawDamagedModel_sd::parameters()
 
 std::unique_ptr<NEMLObject> NEMLPowerLawDamagedModel_sd::initialize(ParameterSet & params)
 {
-  return neml::make_unique<NEMLPowerLawDamagedModel_sd>(
+  return std::make_unique<NEMLPowerLawDamagedModel_sd>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<Interpolate>("A"),
       params.get_object_parameter<Interpolate>("a"),
@@ -1560,7 +1560,7 @@ ParameterSet NEMLExponentialWorkDamagedModel_sd::parameters()
 
 std::unique_ptr<NEMLObject> NEMLExponentialWorkDamagedModel_sd::initialize(ParameterSet & params)
 {
-  return neml::make_unique<NEMLExponentialWorkDamagedModel_sd>(
+  return std::make_unique<NEMLExponentialWorkDamagedModel_sd>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<Interpolate>("W0"),
       params.get_object_parameter<Interpolate>("k0"),

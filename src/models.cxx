@@ -428,7 +428,7 @@ ParameterSet SmallStrainElasticity::parameters()
 
 std::unique_ptr<NEMLObject> SmallStrainElasticity::initialize(ParameterSet & params)
 {
-  return neml::make_unique<SmallStrainElasticity>(
+  return std::make_unique<SmallStrainElasticity>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<Interpolate>("alpha"),
       params.get_parameter<bool>("truesdell")
@@ -515,7 +515,7 @@ ParameterSet SmallStrainPerfectPlasticity::parameters()
 
 std::unique_ptr<NEMLObject> SmallStrainPerfectPlasticity::initialize(ParameterSet & params)
 {
-  return neml::make_unique<SmallStrainPerfectPlasticity>(
+  return std::make_unique<SmallStrainPerfectPlasticity>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<YieldSurface>("surface"),
       params.get_object_parameter<Interpolate>("ys"),
@@ -780,7 +780,7 @@ ParameterSet SmallStrainRateIndependentPlasticity::parameters()
 
 std::unique_ptr<NEMLObject> SmallStrainRateIndependentPlasticity::initialize(ParameterSet & params)
 {
-  return neml::make_unique<SmallStrainRateIndependentPlasticity>(
+  return std::make_unique<SmallStrainRateIndependentPlasticity>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<RateIndependentFlowRule>("flow"),
       params.get_object_parameter<Interpolate>("alpha"),
@@ -1123,7 +1123,7 @@ ParameterSet SmallStrainCreepPlasticity::parameters()
 
 std::unique_ptr<NEMLObject> SmallStrainCreepPlasticity::initialize(ParameterSet & params)
 {
-  return neml::make_unique<SmallStrainCreepPlasticity>(
+  return std::make_unique<SmallStrainCreepPlasticity>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<NEMLModel_sd>("plastic"),
       params.get_object_parameter<CreepModel>("creep"),
@@ -1383,7 +1383,7 @@ ParameterSet GeneralIntegrator::parameters()
 
 std::unique_ptr<NEMLObject> GeneralIntegrator::initialize(ParameterSet & params)
 {
-  return neml::make_unique<GeneralIntegrator>(
+  return std::make_unique<GeneralIntegrator>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<GeneralFlowRule>("rule"),
       params.get_object_parameter<Interpolate>("alpha"),
@@ -1700,7 +1700,7 @@ ParameterSet KMRegimeModel::parameters()
 
 std::unique_ptr<NEMLObject> KMRegimeModel::initialize(ParameterSet & params)
 {
-  return neml::make_unique<KMRegimeModel>(
+  return std::make_unique<KMRegimeModel>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter_vector<NEMLModel_sd>("models"),
       params.get_parameter<std::vector<double>>("gs"),

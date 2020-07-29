@@ -163,7 +163,7 @@ ParameterSet SymmetryGroup::parameters()
 
 std::unique_ptr<NEMLObject> SymmetryGroup::initialize(ParameterSet & params)
 {
-  return neml::make_unique<SymmetryGroup>(
+  return std::make_unique<SymmetryGroup>(
       params.get_parameter<std::string>("sclass"));
 }
 
@@ -467,7 +467,7 @@ ParameterSet CubicLattice::parameters()
 
 std::unique_ptr<NEMLObject> CubicLattice::initialize(ParameterSet & params)
 {
-  return neml::make_unique<CubicLattice>(
+  return std::make_unique<CubicLattice>(
       params.get_parameter<double>("a"),
       params.get_parameter<list_systems>("slip_systems"));
 }

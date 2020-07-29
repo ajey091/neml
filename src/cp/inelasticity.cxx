@@ -31,7 +31,7 @@ ParameterSet NoInelasticity::parameters()
 
 std::unique_ptr<NEMLObject> NoInelasticity::initialize(ParameterSet & params)
 {
-  return neml::make_unique<NoInelasticity>(); 
+  return std::make_unique<NoInelasticity>(); 
 }
 
 void NoInelasticity::populate_history(History & history) const
@@ -156,7 +156,7 @@ ParameterSet AsaroInelasticity::parameters()
 
 std::unique_ptr<NEMLObject> AsaroInelasticity::initialize(ParameterSet & params)
 {
-  return neml::make_unique<AsaroInelasticity>(
+  return std::make_unique<AsaroInelasticity>(
       params.get_object_parameter<SlipRule>("rule")
       ); 
 }
@@ -347,7 +347,7 @@ ParameterSet PowerLawInelasticity::parameters()
 
 std::unique_ptr<NEMLObject> PowerLawInelasticity::initialize(ParameterSet & params)
 {
-  return neml::make_unique<PowerLawInelasticity>(
+  return std::make_unique<PowerLawInelasticity>(
       params.get_object_parameter<Interpolate>("A"),
       params.get_object_parameter<Interpolate>("n")); 
 }
@@ -503,7 +503,7 @@ ParameterSet CombinedInelasticity::parameters()
 
 std::unique_ptr<NEMLObject> CombinedInelasticity::initialize(ParameterSet & params)
 {
-  return neml::make_unique<CombinedInelasticity>(
+  return std::make_unique<CombinedInelasticity>(
       params.get_object_parameter_vector<InelasticModel>("models")
       ); 
 }

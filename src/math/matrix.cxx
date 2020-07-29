@@ -124,7 +124,7 @@ ParameterSet SquareMatrix::parameters()
 
 std::unique_ptr<NEMLObject> SquareMatrix::initialize(ParameterSet & params)
 {
-  return neml::make_unique<SquareMatrix>(
+  return std::make_unique<SquareMatrix>(
       params.get_parameter<size_t>("m"),
       params.get_parameter<std::string>("type"),
       params.get_parameter<std::vector<double>>("data"),

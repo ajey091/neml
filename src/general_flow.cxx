@@ -49,7 +49,7 @@ ParameterSet TVPFlowRule::parameters()
 
 std::unique_ptr<NEMLObject> TVPFlowRule::initialize(ParameterSet & params)
 {
-  return neml::make_unique<TVPFlowRule>(
+  return std::make_unique<TVPFlowRule>(
       params.get_object_parameter<LinearElasticModel>("elastic"),
       params.get_object_parameter<ViscoPlasticFlowRule>("flow")
       ); 

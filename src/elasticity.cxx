@@ -82,7 +82,7 @@ ParameterSet IsotropicLinearElasticModel::parameters()
 
 std::unique_ptr<NEMLObject> IsotropicLinearElasticModel::initialize(ParameterSet & params)
 {
-  return neml::make_unique<IsotropicLinearElasticModel>(
+  return std::make_unique<IsotropicLinearElasticModel>(
       params.get_object_parameter<Interpolate>("m1"),
       params.get_parameter<std::string>("m1_type"),
       params.get_object_parameter<Interpolate>("m2"),
@@ -273,7 +273,7 @@ ParameterSet CubicLinearElasticModel::parameters()
 
 std::unique_ptr<NEMLObject> CubicLinearElasticModel::initialize(ParameterSet & params)
 {
-  return neml::make_unique<CubicLinearElasticModel>(
+  return std::make_unique<CubicLinearElasticModel>(
       params.get_object_parameter<Interpolate>("m1"),
       params.get_object_parameter<Interpolate>("m2"),
       params.get_object_parameter<Interpolate>("m3"),

@@ -47,7 +47,7 @@ ParameterSet SingleCrystalModel::parameters()
 
 std::unique_ptr<NEMLObject> SingleCrystalModel::initialize(ParameterSet & params)
 {
-  return neml::make_unique<SingleCrystalModel>(
+  return std::make_unique<SingleCrystalModel>(
       params.get_object_parameter<KinematicModel>("kinematics"),
       params.get_object_parameter<Lattice>("lattice"),
       params.get_object_parameter<Orientation>("initial_rotation"),

@@ -87,7 +87,7 @@ std::unique_ptr<NEMLObject> Quaternion::initialize(ParameterSet & params)
     throw std::runtime_error("Input quaternion must be length 4!");
   }
 
-  return neml::make_unique<Quaternion>(p);
+  return std::make_unique<Quaternion>(p);
 }
 
 Quaternion & Quaternion::operator=(const Quaternion & rhs)

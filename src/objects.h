@@ -9,21 +9,14 @@
 #include <functional>
 #include <stdexcept>
 #include <algorithm>
+#include <variant>
 
 #include "windows.h"
-
-#include "boost/variant.hpp"
 
 namespace neml {
 
 /// Typedef for slip systems
 typedef std::vector<std::pair<std::vector<int>,std::vector<int>>> list_systems;
-
-/// We can avoid this with proper C++14, will need ifdefs
-template<typename T, typename... Args>
-std::unique_ptr<T> make_unique(Args&&... args) {
-    return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
-}
 
 /// NEMLObjects are current pretty useless.  However, they are a hook
 /// for future work on serialization.
@@ -45,7 +38,7 @@ class NEML_EXPORT NEMLObject {
 //    vector<size_t>
 
 /// This black magic lets us store parameters in a unified map
-typedef boost::variant<double, int, bool, std::vector<double>,
+typedef std::variant<double, int, bool, std::vector<double>,
         std::shared_ptr<NEMLObject>,std::vector<std::shared_ptr<NEMLObject>>,
         std::string, list_systems, size_t, std::vector<size_t>> param_type;
 /// This is the enum name we assign to each type for the "external" interfaces
@@ -168,7 +161,7 @@ class NEML_EXPORT ParameterSet {
   T get_parameter(std::string name)
   {
     resolve_objects_();
-    return boost::get<T>(params_[name]);
+    return std::get<T>(params_[name]);
   }
 
   /// Assign a parameter set to be used to create an object later

@@ -248,7 +248,7 @@ std::string KinematicPowerLawSlipRule::type()
 std::unique_ptr<NEMLObject> KinematicPowerLawSlipRule::initialize(
     ParameterSet & params)
 {
-  return neml::make_unique<KinematicPowerLawSlipRule>(
+  return std::make_unique<KinematicPowerLawSlipRule>(
       params.get_object_parameter<SlipHardening>("backstrength"),
       params.get_object_parameter<SlipHardening>("isostrength"),
       params.get_object_parameter<SlipHardening>("flowresistance"),
@@ -374,7 +374,7 @@ std::string PowerLawSlipRule::type()
 std::unique_ptr<NEMLObject> PowerLawSlipRule::initialize(
     ParameterSet & params)
 {
-  return neml::make_unique<PowerLawSlipRule>(
+  return std::make_unique<PowerLawSlipRule>(
       params.get_object_parameter<SlipHardening>("resistance"),
       params.get_object_parameter<Interpolate>("gamma0"),
       params.get_object_parameter<Interpolate>("n"));

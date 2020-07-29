@@ -51,7 +51,7 @@ ParameterSet PowerLawCreep::parameters()
 
 std::unique_ptr<NEMLObject> PowerLawCreep::initialize(ParameterSet & params)
 {
-  return neml::make_unique<PowerLawCreep>(
+  return std::make_unique<PowerLawCreep>(
       params.get_object_parameter<Interpolate>("A"),
       params.get_object_parameter<Interpolate>("n")
       ); 
@@ -113,7 +113,7 @@ ParameterSet NormalizedPowerLawCreep::parameters()
 
 std::unique_ptr<NEMLObject> NormalizedPowerLawCreep::initialize(ParameterSet & params)
 {
-  return neml::make_unique<NormalizedPowerLawCreep>(
+  return std::make_unique<NormalizedPowerLawCreep>(
       params.get_object_parameter<Interpolate>("s0"),
       params.get_object_parameter<Interpolate>("n")
       ); 
@@ -172,7 +172,7 @@ ParameterSet BlackburnMinimumCreep::parameters()
 
 std::unique_ptr<NEMLObject> BlackburnMinimumCreep::initialize(ParameterSet & params)
 {
-  return neml::make_unique<BlackburnMinimumCreep>(
+  return std::make_unique<BlackburnMinimumCreep>(
       params.get_object_parameter<Interpolate>("A"),
       params.get_object_parameter<Interpolate>("n"),
       params.get_object_parameter<Interpolate>("beta"),
@@ -250,7 +250,7 @@ ParameterSet SwindemanMinimumCreep::parameters()
 
 std::unique_ptr<NEMLObject> SwindemanMinimumCreep::initialize(ParameterSet & params)
 {
-  return neml::make_unique<SwindemanMinimumCreep>(
+  return std::make_unique<SwindemanMinimumCreep>(
       params.get_parameter<double>("C"),
       params.get_parameter<double>("n"),
       params.get_parameter<double>("V"),
@@ -325,7 +325,7 @@ ParameterSet RegionKMCreep::parameters()
 
 std::unique_ptr<NEMLObject> RegionKMCreep::initialize(ParameterSet & params)
 {
-  return neml::make_unique<RegionKMCreep>(
+  return std::make_unique<RegionKMCreep>(
       params.get_parameter<std::vector<double>>("cuts"),
       params.get_object_parameter_vector<Interpolate>("A"),
       params.get_object_parameter_vector<Interpolate>("B"),
@@ -424,7 +424,7 @@ ParameterSet NortonBaileyCreep::parameters()
 
 std::unique_ptr<NEMLObject> NortonBaileyCreep::initialize(ParameterSet & params)
 {
-  return neml::make_unique<NortonBaileyCreep>(
+  return std::make_unique<NortonBaileyCreep>(
       params.get_object_parameter<Interpolate>("A"),
       params.get_object_parameter<Interpolate>("m"),
       params.get_object_parameter<Interpolate>("n")
@@ -535,7 +535,7 @@ ParameterSet MukherjeeCreep::parameters()
 
 std::unique_ptr<NEMLObject> MukherjeeCreep::initialize(ParameterSet & params)
 {
-  return neml::make_unique<MukherjeeCreep>(
+  return std::make_unique<MukherjeeCreep>(
       params.get_object_parameter<LinearElasticModel>("emodel"),
       params.get_parameter<double>("A"),
       params.get_parameter<double>("n"),
@@ -620,7 +620,7 @@ std::string GenericCreep::type()
 
 std::unique_ptr<NEMLObject> GenericCreep::initialize(ParameterSet & params)
 {
-  return neml::make_unique<GenericCreep>(
+  return std::make_unique<GenericCreep>(
       params.get_object_parameter<Interpolate>("cfn")
       );
 }
@@ -803,7 +803,7 @@ ParameterSet MinCreep225Cr1MoCreep::parameters()
 
 std::unique_ptr<NEMLObject> MinCreep225Cr1MoCreep::initialize(ParameterSet & params)
 {
-  return neml::make_unique<MinCreep225Cr1MoCreep>(); 
+  return std::make_unique<MinCreep225Cr1MoCreep>(); 
 }
 
 
@@ -905,7 +905,7 @@ ParameterSet J2CreepModel::parameters()
 
 std::unique_ptr<NEMLObject> J2CreepModel::initialize(ParameterSet & params)
 {
-  return neml::make_unique<J2CreepModel>(
+  return std::make_unique<J2CreepModel>(
       params.get_object_parameter<ScalarCreepRule>("rule"),
       params.get_parameter<double>("tol"),
       params.get_parameter<int>("miter"),

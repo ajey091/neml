@@ -111,7 +111,7 @@ ParameterSet TaylorModel::parameters()
 
 std::unique_ptr<NEMLObject> TaylorModel::initialize(ParameterSet & params)
 {
-  return neml::make_unique<TaylorModel>(
+  return std::make_unique<TaylorModel>(
       params.get_object_parameter<SingleCrystalModel>("model"),
       params.get_object_parameter_vector<Orientation>("qs"),
       params.get_parameter<int>("nthreads"));

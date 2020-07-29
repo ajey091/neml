@@ -33,7 +33,7 @@ ParameterSet LarsonMillerRelation::parameters()
 std::unique_ptr<NEMLObject> LarsonMillerRelation::initialize(
     ParameterSet & params)
 {
-  return neml::make_unique<LarsonMillerRelation>(
+  return std::make_unique<LarsonMillerRelation>(
       params.get_object_parameter<Interpolate>("function"),
       params.get_parameter<double>("C"),
       params.get_parameter<double>("tol"),

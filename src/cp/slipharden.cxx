@@ -18,11 +18,11 @@ History SlipHardening::cache(CacheType type) const
 
 void SlipHardening::init_cache_()
 {
-  blank_ = make_unique<History>();
+  blank_ = std::make_unique<History>();
   populate_history(*blank_);
   blank_->zero();
 
-  double_ = make_unique<History>((*blank_).derivative<double>());
+  double_ = std::make_unique<History>((*blank_).derivative<double>());
 }
 
 History SlipHardening::d_hist_to_tau_ext(size_t g, size_t i, 
@@ -63,7 +63,7 @@ std::string FixedStrengthHardening::type()
 
 std::unique_ptr<NEMLObject> FixedStrengthHardening::initialize(ParameterSet & params)
 {
-  return neml::make_unique<FixedStrengthHardening>(
+  return std::make_unique<FixedStrengthHardening>(
       params.get_object_parameter_vector<Interpolate>("strengths"));
 }
 
@@ -164,7 +164,7 @@ std::string GeneralLinearHardening::type()
 
 std::unique_ptr<NEMLObject> GeneralLinearHardening::initialize(ParameterSet & params)
 {
-  return neml::make_unique<GeneralLinearHardening>(
+  return std::make_unique<GeneralLinearHardening>(
       params.get_object_parameter<SquareMatrix>("M"),
       params.get_parameter<std::vector<double>>("tau_0"),
       params.get_parameter<bool>("absval"),
@@ -548,7 +548,7 @@ std::string SumSlipSingleStrengthHardening::type()
 std::unique_ptr<NEMLObject> SumSlipSingleStrengthHardening::initialize(
     ParameterSet & params)
 {
-  return neml::make_unique<SumSlipSingleStrengthHardening>(
+  return std::make_unique<SumSlipSingleStrengthHardening>(
       params.get_object_parameter_vector<SlipSingleStrengthHardening>("models"));
 }
 
@@ -775,7 +775,7 @@ std::string VoceSlipHardening::type()
 std::unique_ptr<NEMLObject> VoceSlipHardening::initialize(
     ParameterSet & params)
 {
-  return neml::make_unique<VoceSlipHardening>(
+  return std::make_unique<VoceSlipHardening>(
       params.get_object_parameter<Interpolate>("tau_sat"),
       params.get_object_parameter<Interpolate>("b"),
       params.get_object_parameter<Interpolate>("tau_0"),
@@ -861,7 +861,7 @@ std::string LinearSlipHardening::type()
 std::unique_ptr<NEMLObject> LinearSlipHardening::initialize(
     ParameterSet & params)
 {
-  return neml::make_unique<LinearSlipHardening>(
+  return std::make_unique<LinearSlipHardening>(
       params.get_object_parameter<Interpolate>("tau0"),
       params.get_object_parameter<Interpolate>("k1"),
       params.get_object_parameter<Interpolate>("k2"));

@@ -63,7 +63,7 @@ std::string StandardKinematicModel::type()
 
 std::unique_ptr<NEMLObject> StandardKinematicModel::initialize(ParameterSet & params)
 {
-  return neml::make_unique<StandardKinematicModel>(
+  return std::make_unique<StandardKinematicModel>(
       params.get_object_parameter<LinearElasticModel>("emodel"),
       params.get_object_parameter<InelasticModel>("imodel"));
 }
