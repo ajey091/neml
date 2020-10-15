@@ -34,7 +34,7 @@ add_library(neml
       )
 add_subdirectory(math)
 add_subdirectory(cp)
-target_link_libraries(neml ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES} ${SOLVER_LIBRARIES} ${OpenMP_CXX_LIBRARIES})
+target_link_libraries(neml ${BLAS_LIBRARIES} ${LAPACK_LIBRARIES} ${SOLVER_LIBRARIES} ${OpenMP_CXX_LIBRARIES} m)
 generate_export_header(neml)
 
 ### python bindings in neml ###
