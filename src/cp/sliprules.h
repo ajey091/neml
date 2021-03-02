@@ -186,6 +186,7 @@ class NEML_EXPORT KinematicPowerLawSlipRule: public SlipMultiStrengthSlipRule
 
 static Register<KinematicPowerLawSlipRule> regKinematicPowerLawSlipRule;
 
+
 /// Class where all slip rules that give the system response proportional to some strength,
 /// which is in turn a function of the history
 class NEML_EXPORT SlipStrengthSlipRule: public SlipMultiStrengthSlipRule
@@ -217,6 +218,43 @@ class NEML_EXPORT SlipStrengthSlipRule: public SlipMultiStrengthSlipRule
   virtual double scalar_d_sslip_dstrength(size_t g, size_t i, double tau,
                                           double strength, double T) const = 0;
 };
+
+
+/// Hu and Cocks slip rule
+class NEML_EXPORT HuCocksSlipRule: public SlipStrengthSlipRule
+{
+ public:
+  /// A completely generic slip rule with a backstrength, a isostrength, and
+  /// a flow resistance.
+  HuCocksSlipRule(std::shared_ptr<SlipHardening> strength,
+                   std::shared_ptr<Interpolate> gamma0,
+                   std::shared_ptr<Interpolate> n);
+
+  /// String type for the object system
+  static std::string type();
+  /// Initialize from a parameter set
+  static std::unique_ptr<NEMLObject> initialize(ParameterSet & params);
+  /// Default parameters
+  static ParameterSet parameters();
+
+  /// The slip rate definition
+  virtual double scalar_sslip(size_t g, size_t i, double tau, double strength,
+                              double T) const;
+  /// Derivative of slip rate with respect to the resolved shear
+  virtual double scalar_d_sslip_dtau(size_t g, size_t i, double tau, 
+                                     double strength, double T) const;
+  /// Derivative of the slip rate with respect to the strength
+  virtual double scalar_d_sslip_dstrength(size_t g, size_t i, double tau,
+                                          double strength, double T) const;
+
+ private:
+  std::shared_ptr<Interpolate> gamma0_;
+  std::shared_ptr<Interpolate> n_;
+};
+
+static Register<HuCocksSlipRule> regHuCocksSlipRule;
+
+
 
 /// The standard power law slip strength/rate relation
 class NEML_EXPORT PowerLawSlipRule: public SlipStrengthSlipRule
@@ -252,6 +290,8 @@ class NEML_EXPORT PowerLawSlipRule: public SlipStrengthSlipRule
 
 static Register<PowerLawSlipRule> regPowerLawSlipRule;
 
-} // namespace neml
+} 
+
+// namespace neml
 
 #endif // SLIPRULES_H

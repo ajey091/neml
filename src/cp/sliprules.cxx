@@ -420,4 +420,91 @@ double PowerLawSlipRule::scalar_d_sslip_dstrength(size_t g, size_t i,
   return -n * g0 * tau * std::pow(std::fabs(tau), n -1.0) / std::pow(strength, n + 1.0); 
 }
 
+
+HuCocksSlipRule::HuCocksSlipRule(std::shared_ptr<SlipHardening> strength,
+                                   std::shared_ptr<Interpolate> gamma0, 
+                                   std::shared_ptr<Interpolate> n) :
+    SlipStrengthSlipRule(strength), gamma0_(gamma0), n_(n)
+{
+
+}
+
+std::string HuCocksSlipRule::type()
+{
+  return "HuCocksSlipRule";
+}
+
+std::unique_ptr<NEMLObject> HuCocksSlipRule::initialize(
+    ParameterSet & params)
+{
+  return neml::make_unique<HuCocksSlipRule>(
+      params.get_object_parameter<SlipHardening>("resistance"),
+      params.get_object_parameter<Interpolate>("gamma0"),
+      params.get_object_parameter<Interpolate>("n"));
+}
+
+ParameterSet HuCocksSlipRule::parameters()
+{
+  ParameterSet pset(HuCocksSlipRule::type());
+  
+  pset.add_parameter<NEMLObject>("resistance");
+  pset.add_parameter<NEMLObject>("gamma0");
+  pset.add_parameter<NEMLObject>("n");
+
+  return pset;
+}
+
+double HuCocksSlipRule::scalar_sslip(size_t g, size_t i, double tau, 
+                                      double strength, double T) const
+{
+
+  double g0 = gamma0_->value(T);
+  double n = n_->value(T);
+  double Fo = 0.5 * 15.625 * std::pow(10,-21) * 79.3 * std::pow(10,3);
+  double k = 1.38 * std::pow(10,-20);
+  double Temp = 300;
+  // tau = 1;
+  double tau_in = tau;
+  
+  return g0 * std::exp(-Fo/k/Temp * std::pow(1 - std::pow(std::abs((tau + tau_in)/strength),0.75),1.33)) 
+  * (tau/std::abs(tau));
+
+}
+
+double HuCocksSlipRule::scalar_d_sslip_dtau(size_t g, size_t i, double tau, 
+                                             double strength, double T) const
+{
+  double g0 = gamma0_->value(T);
+  double n = n_->value(T);
+  double Fo = 0.5 * 15.625 * std::pow(10,-21) * 79.3 * std::pow(10,3);
+  double k = 1.38 * std::pow(10,-20);
+  double Temp = 300;
+  // tau = 1;
+  double tau_in = tau;
+ 
+  return Fo*g0*std::pow(((tau + tau_in)/strength),0.75) * std::pow(1 - std::pow(((tau + tau_in)/strength),0.75),0.33)
+	  * std::exp(-Fo*(1 - std::pow(std::pow(((tau + tau_in)/strength),0.75),1.33))/(Temp*k))/(Temp*k*(tau + tau_in)) * (tau/std::abs(tau));
+
+}
+
+double HuCocksSlipRule::scalar_d_sslip_dstrength(size_t g, size_t i, 
+                                                  double tau, 
+                                                  double strength,
+                                                  double T) const
+{
+  double g0 = gamma0_->value(T);
+  double n = n_->value(T);
+  double Fo = 0.5 * 15.625 * std::pow(10,-21) * 79.3 * std::pow(10,3); 
+  double k = 1.38 * std::pow(10,-20);
+  double Temp = 300;
+  // tau = 1;
+  double tau_in = tau;
+
+  return -Fo*g0*std::pow(((tau + tau_in)/strength),0.75) * std::pow(1 - std::pow(((tau + tau_in)/strength),0.75),0.33) 
+	  * std::exp(-Fo*(1 - std::pow(std::pow(((tau + tau_in)/strength),0.75),1.33))/(Temp*k))/(Temp*k*strength) * (tau/std::abs(tau));
+
+}
+
+
+
 } // namespace neml
